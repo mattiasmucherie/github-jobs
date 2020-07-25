@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import styled from 'styled-components'
+import SearchSection from './components/SearchSection'
 
+const Header = styled.header`
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+`
+const Bold = styled.b`
+  font-weight: 700;
+`
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header>
+        <Bold>Github </Bold>Jobs
+      </Header>
+      <SearchSection></SearchSection>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
