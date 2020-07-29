@@ -6,11 +6,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 12px;
+  background: #f6f7fb;
 }
 
-@media only screen and (min-width: 600px) {
-  body{
-  padding: 32px 120px;
-
+@media only screen and (min-width: 771px) {
+  body {
+    padding: 32px 120px;
   }
 }

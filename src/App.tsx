@@ -6,6 +6,7 @@ const Header = styled.header`
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
   font-weight: 300;
+  margin-bottom: 32px;
 `
 const Bold = styled.b`
   font-weight: 700;
@@ -16,7 +17,7 @@ function App() {
       <Header>
         <Bold>Github </Bold>Jobs
       </Header>
-      <SearchSection></SearchSection>
+      <SearchSection />
     </div>
   )
 }
