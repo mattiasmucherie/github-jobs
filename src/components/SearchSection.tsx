@@ -66,6 +66,17 @@ const SearchSection = () => {
     loadData()
   }, [jobs, selectedJob])
 
+  const searchData = () => {
+    let url: string
+    if(fulltime) {
+
+      // if (location) {
+      //   if (description) {
+      //     url = "https://jobs.github.com/positions.json"
+      //   }
+      // }
+    }
+  }
   return (
     <>
       {selectedJob ? (

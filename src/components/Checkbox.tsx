@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
@@ -27,7 +27,7 @@ const StyledCheckbox = styled.div<{ checked: boolean }>`
   border-radius: 2px;
   transition: all 150ms;
   ${HiddenCheckbox}:focus + & {
-    box-shadow: 0 0 0 3px pink;
+    box-shadow: 0 0 0 3px #1e86ff;
   }
   ${Icon} {
     visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};
@@ -38,22 +38,40 @@ const CheckboxContainer = styled.div`
   vertical-align: middle;
   margin-right: 12px;
 `
+const CheckboxLabelText = styled.span`
+  color: #334680;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+`
+const Container = styled.div`
+  margin: 8px 0;
+`
 
 interface CheckboxProps {
   checked: boolean
-  onChange: any
+  setFunction: (value: boolean) => void
+  labelText: string
 }
 const Checkbox = (props: CheckboxProps): JSX.Element => {
-  const { checked } = props
+  const { checked, setFunction, labelText } = props
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFunction(event.target.checked)
+  }
   return (
-    <CheckboxContainer>
-      <HiddenCheckbox checked={checked} {...props} />
-      <StyledCheckbox checked={checked}>
-        <Icon viewBox="0 0 24 24">
-          <polyline points="20 6 9 17 4 12" />
-        </Icon>
-      </StyledCheckbox>
-    </CheckboxContainer>
+    <Container>
+      <label>
+        <CheckboxContainer>
+          <HiddenCheckbox checked={checked} onChange={handleOnChange} />
+          <StyledCheckbox checked={checked}>
+            <Icon viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12" />
+            </Icon>
+          </StyledCheckbox>
+        </CheckboxContainer>
+        <CheckboxLabelText>{labelText}</CheckboxLabelText>
+      </label>
+    </Container>
   )
 }
 
