@@ -68,8 +68,7 @@ const SearchSection = () => {
 
   const searchData = () => {
     let url: string
-    if(fulltime) {
-
+    if (fulltime) {
       // if (location) {
       //   if (description) {
       //     url = "https://jobs.github.com/positions.json"

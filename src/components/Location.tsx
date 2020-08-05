@@ -24,16 +24,16 @@ interface LocationProps {
   onSearch: () => void
 }
 const Location = (props: LocationProps) => {
-  const {onSearch} = props
+  const { onSearch } = props
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.charCode===13) {
+    if (event.charCode === 13) {
       onSearch()
     }
   }
   return (
     <LocationContainer>
       <LocationText>Location</LocationText>
-      <LocationInput type="text" onKeyPress={handleKeyPress}/>
+      <LocationInput type="text" onKeyPress={handleKeyPress} />
     </LocationContainer>
   )
 }

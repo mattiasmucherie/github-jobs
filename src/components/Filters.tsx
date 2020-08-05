@@ -19,9 +19,7 @@ const Filters = (props: FiltersProps) => {
   const handleLocationSearch = () => {
     console.log('LOCATION SEARCH')
   }
-  useEffect(() => {
-
-  })
+  useEffect(() => {})
   return (
     <FilterContainer>
       <Checkbox checked={fullTime} setFunction={setFullTime} labelText="Full Time" />
