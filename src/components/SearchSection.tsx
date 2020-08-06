@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import backgroundImage from '../assets/backgroundImg.png'
 import { Job } from '../types'
-import { get } from '../utils/http'
 import JobCard from './JobCard'
 import JobView from './JobView'
 import { Loader } from './styled-components'
 import Filters from './Filters'
+import useInitRequest from '../utils/useInitRequest'
 
 const BannerContainer = styled.div`
   position: relative;
@@ -33,17 +33,17 @@ const SearchButton = styled.button`
 `
 
 const SearchSection = () => {
-  const [jobs, setJobs] = useState<Array<Job>>([])
   const [selectedJob, setSelectedJob] = useState<Job | null>(null)
   const [scrollPosition, setScrollPosition] = useState(0)
-  const [loading, setLoading] = useState(false)
   const [filterUrl, setFilterUrl] = useState('')
 
-  const onEnterLocation = async () => {
-    setLoading(true)
-    await getJobs()
-    setLoading(false)
-  }
+  const { jobs, initLoading, initError } = useInitRequest(
+    `https://jobs.github.com/positions.json${filterUrl ? '?' + filterUrl : ""}`
+  )
+
+  const loading = initLoading
+
+  const onEnterLocation = async () => {}
   const handleFilter = (url: string) => {
     setFilterUrl(url)
   }
@@ -54,34 +54,6 @@ const SearchSection = () => {
       window.scrollTo(0, scrollPosition)
     }, 1)
   }
-  const getJobs = async () => {
-    let url = 'https://jobs.github.com/positions.json?description='
-    if (filterUrl) url += `&${filterUrl}`
-    get(url)
-      .then((r) => {
-        setJobs(r.data)
-        setLoading(false)
-      })
-      .catch((err) => {
-        console.error(err)
-        setLoading(false)
-      })
-  }
-
-  useEffect(() => {
-    if (!selectedJob && jobs.length < 1) {
-      setLoading(true)
-      get('https://jobs.github.com/positions.json')
-        .then((r) => {
-          setJobs(r.data)
-          setLoading(false)
-        })
-        .catch((err) => {
-          console.error(err)
-          setLoading(false)
-        })
-    }
-  }, [jobs, selectedJob])
 
   return (
     <>
@@ -97,7 +69,11 @@ const SearchSection = () => {
             </SearchContainer>
           </BannerContainer>
           <Filters handleFilter={handleFilter} onEnterLocation={onEnterLocation} />
-          {jobs.length > 0 ? (
+          {loading ? (
+            <Loader>
+              <div />
+            </Loader>
+          ) : jobs.length > 0 ? (
             jobs.map((job) => (
               <JobCard
                 key={job.id}
@@ -109,10 +85,6 @@ const SearchSection = () => {
                 }}
               />
             ))
-          ) : loading ? (
-            <Loader>
-              <div />
-            </Loader>
           ) : (
             <div>No Job Found</div>
           )}

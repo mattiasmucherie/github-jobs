@@ -27,6 +27,6 @@ export const buildUrl = ({
   if (fullTime) {
     url += url.length ? '&full_time=true' : 'full_time=true'
   }
-
+console.log(url)
   return url
 }

@@ -50,13 +50,18 @@ const Container = styled.div`
 
 interface CheckboxProps {
   checked: boolean
-  setFunction: (value: boolean) => void
-  labelText: string
+  setFunction: (checked: boolean, index?: number) => void
+  labelText?: string
+  city?: {city: string, checked: boolean, index: number}
 }
 const Checkbox = (props: CheckboxProps): JSX.Element => {
-  const { checked, setFunction, labelText } = props
+  const { checked, setFunction, labelText, city } = props
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFunction(event.target.checked)
+    if (labelText !== 'Full Time') {
+      setFunction(event.target.checked, city?.index)
+    } else {
+      setFunction(event.target.checked)
+    }
   }
   return (
     <Container>
@@ -69,7 +74,7 @@ const Checkbox = (props: CheckboxProps): JSX.Element => {
             </Icon>
           </StyledCheckbox>
         </CheckboxContainer>
-        <CheckboxLabelText>{labelText}</CheckboxLabelText>
+        <CheckboxLabelText>{labelText || city?.city}</CheckboxLabelText>
       </label>
     </Container>
   )
