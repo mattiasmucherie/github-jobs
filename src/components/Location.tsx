@@ -21,13 +21,17 @@ const LocationInput = styled.input`
   color: #b9bdcf;
 `
 interface LocationProps {
-  onSearch: () => void
+  onSearch: (userSearch: string | null) => void
 }
 const Location = (props: LocationProps) => {
   const { onSearch } = props
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.charCode === 13) {
-      onSearch()
+      if (event.currentTarget.value) {
+        onSearch(event.currentTarget.value)
+      } else {
+        onSearch(null)
+      }
     }
   }
   return (

@@ -68,7 +68,12 @@ const Icon = styled.i<{ left?: boolean }>`
   padding-left: ${(props) => (props.left ? '28.5px' : 0)};
   padding-right: 7.5px;
 `
-const Location = styled.span``
+const Location = styled.span`
+  max-width: 69px;
+  @media only screen and (min-width: 771px) {
+    max-width: none;
+  }
+`
 const Date = styled.span`
   min-width: 65px;
 `
