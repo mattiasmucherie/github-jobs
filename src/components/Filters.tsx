@@ -3,13 +3,13 @@ import styled from 'styled-components'
 
 import Checkbox from './Checkbox'
 import Location from './Location'
-import { buildUrl } from '../utils/filterUtils'
+import { buildUrl, FilterCities } from '../utils/filterUtils'
 
 const FilterContainer = styled.div`
   margin: 25px 0;
 `
 
-const initStateCities = [
+const initStateCities: FilterCities[] = [
   { city: 'London', checked: false, index: 0 },
   { city: 'Amsterdam', checked: false, index: 1 },
   { city: 'New York', checked: false, index: 2 },
@@ -23,17 +23,13 @@ interface FiltersProps {
 const Filters = (props: FiltersProps) => {
   const { handleFilter, onEnterLocation } = props
   const [fullTime, setFullTime] = useState(false)
-  const [london, setLondon] = useState(false)
-  const [amsterdam, setAmsterdam] = useState(false)
-  const [newYork, setNewYork] = useState(false)
-  const [berlin, setBerlin] = useState(false)
   const [userLocationSearch, setUserLocationSearch] = useState('')
   const [cities, setCities] = useState(initStateCities)
 
   useEffect(() => {
-    const url = buildUrl({ amsterdam, berlin, london, newYork, fullTime, userLocationSearch })
+    const url = buildUrl({ cities, fullTime, userLocationSearch })
     handleFilter(url)
-  }, [cities, amsterdam, berlin, fullTime, handleFilter, london, newYork, userLocationSearch])
+  }, [cities, fullTime, handleFilter, userLocationSearch])
 
   const handleLocationSearch = (userSearch: string | null) => {
     if (userSearch) {
@@ -44,7 +40,8 @@ const Filters = (props: FiltersProps) => {
     onEnterLocation()
   }
   const handleClick = (checked: boolean, index?: number) => {
-    if (index) {
+    console.log(checked, index)
+    if (index !== undefined) {
       const newState = initStateCities
       newState[index].checked = checked
       console.log(newState)
@@ -52,7 +49,6 @@ const Filters = (props: FiltersProps) => {
     }
   }
 
-  useEffect(() => {})
   return (
     <FilterContainer>
       <Checkbox checked={fullTime} setFunction={setFullTime} labelText="Full Time" />

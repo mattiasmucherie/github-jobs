@@ -37,10 +37,9 @@ const SearchSection = () => {
   const [scrollPosition, setScrollPosition] = useState(0)
   const [filterUrl, setFilterUrl] = useState('')
 
-  const { jobs, initLoading, initError } = useInitRequest(
-    `https://jobs.github.com/positions.json${filterUrl ? '?' + filterUrl : ""}`
+  const { jobs, initLoading } = useInitRequest(
+    `https://jobs.github.com/positions.json${filterUrl ? '?' + filterUrl : ''}`
   )
-
   const loading = initLoading
 
   const onEnterLocation = async () => {}
