@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
-const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+const HiddenCheckbox = styled.input.attrs({ type: 'radio' })`
   border: 0;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -49,20 +49,17 @@ const Container = styled.div`
 `
 
 interface CheckboxProps {
-  checked: boolean
-  setFunction: (checked: boolean, index?: number) => void
-  labelText?: string
-  city?: {city: string, checked: boolean, index: number}
+  setFunction: (checked: boolean, labelText?: string) => void
+  labelText: string
+  checkedProps?: boolean
+  currentCity?: string
 }
 const Checkbox = (props: CheckboxProps): JSX.Element => {
-  const { checked, setFunction, labelText, city } = props
+  const { checkedProps, setFunction, labelText, currentCity } = props
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (labelText !== 'Full Time') {
-      setFunction(event.target.checked, city?.index)
-    } else {
-      setFunction(event.target.checked)
-    }
+    setFunction(event.target.checked, labelText)
   }
+  const checked = checkedProps || (currentCity ? currentCity === labelText : false)
   return (
     <Container>
       <label>
@@ -74,7 +71,7 @@ const Checkbox = (props: CheckboxProps): JSX.Element => {
             </Icon>
           </StyledCheckbox>
         </CheckboxContainer>
-        <CheckboxLabelText>{labelText || city?.city}</CheckboxLabelText>
+        <CheckboxLabelText>{labelText}</CheckboxLabelText>
       </label>
     </Container>
   )

@@ -27,7 +27,7 @@ const useInitRequest = (initUrl: string) => {
     }
   }, [initUrl])
 
-  return { jobs: data, initLoading: loading, initError: error }
+  return { jobs: data, loading, error }
 }
 
 export default useInitRequest
