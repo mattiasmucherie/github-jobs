@@ -10,14 +10,13 @@ const FilterContainer = styled.div`
 `
 interface FiltersProps {
   handleFilter: (url: string) => void
-  onEnterLocation: () => void
 }
 
 const Filters = (props: FiltersProps) => {
-  const { handleFilter, onEnterLocation } = props
+  const { handleFilter } = props
   const [fullTime, setFullTime] = useState(false)
-  const [userLocationSearch, setUserLocationSearch] = useState('')
-  const [city, setCity] = useState('')
+  const [userLocationSearch, setUserLocationSearch] = useState('London')
+  const [city, setCity] = useState('London')
 
   useEffect(() => {
     const url = buildUrl({ fullTime, userLocationSearch })
@@ -42,7 +41,6 @@ const Filters = (props: FiltersProps) => {
       setUserLocationSearch('')
       setCity('')
     }
-    onEnterLocation()
   }
 
   return (

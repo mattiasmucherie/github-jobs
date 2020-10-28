@@ -7,6 +7,7 @@ import JobView from './JobView'
 import { Loader } from './styled-components'
 import Filters from './Filters'
 import useInitRequest from '../utils/useInitRequest'
+import SearchBar from './SearchBar'
 
 const BannerContainer = styled.div`
   position: relative;
@@ -26,6 +27,9 @@ const SearchContainer = styled.div`
   display: flex;
   background: #ffffff;
   padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-family: Roboto, sans-serif;
 `
 const JobFilterContainer = styled.div`
   @media only screen and (min-width: 1100px) {
@@ -35,23 +39,35 @@ const JobFilterContainer = styled.div`
   }
 `
 
-const SearchInput = styled.input``
 const SearchButton = styled.button`
   border: none;
+  background: #1e86ff;
+  color: white;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 0 30px;
+`
+const NoJobContainer = styled.div`
+  margin-top: 2rem;
 `
 
 const SearchSection = () => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null)
   const [scrollPosition, setScrollPosition] = useState(0)
   const [filterUrl, setFilterUrl] = useState('')
+  const [locationFilter, setLocationFilter] =useState('')
+  const [searchBarFilter, setSearchBarFilter] = useState('')
 
   const { jobs, loading } = useInitRequest(`https://jobs.github.com/positions.json${filterUrl ? `?${filterUrl}` : ''}`)
 
-  const onEnterLocation = async () => {}
   const handleFilter = (url: string) => {
-    setFilterUrl(url)
+    setLocationFilter(url)
   }
 
+  const handleSearchBar = (userSearch: string | null) => {
+   if (userSearch) {
+      setSearchBarFilter(userSearch)
+  }
   const resetSelectedJob = () => {
     setSelectedJob(null)
     setTimeout(function () {
@@ -68,13 +84,13 @@ const SearchSection = () => {
           <BannerContainer>
             <BackgroundImage src={backgroundImage} alt="Background" />
             <SearchContainer>
-              <SearchInput />
+              <SearchBar onSearch={handleSearchBar} />
               <SearchButton>Search</SearchButton>
             </SearchContainer>
           </BannerContainer>
           <JobFilterContainer>
             <div>
-              <Filters handleFilter={handleFilter} onEnterLocation={onEnterLocation} />
+              <Filters handleFilter={handleFilter} />
             </div>
             <div>
               {loading ? (
@@ -94,7 +110,7 @@ const SearchSection = () => {
                   />
                 ))
               ) : (
-                <div>No Job Found</div>
+                <NoJobContainer>No Job Found</NoJobContainer>
               )}
             </div>
           </JobFilterContainer>
