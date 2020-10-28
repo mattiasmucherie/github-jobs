@@ -68,6 +68,8 @@ const SearchSection = () => {
    if (userSearch) {
       setSearchBarFilter(userSearch)
   }
+   // TODO:  MAKE A FUNCTION THAT ONLY UPDATES FILTER URL WHEN SEARCHBAR OR LOCATIONFILTER |HAS BEEN CHANGED
+
   const resetSelectedJob = () => {
     setSelectedJob(null)
     setTimeout(function () {
