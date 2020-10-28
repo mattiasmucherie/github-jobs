@@ -27,6 +27,14 @@ const SearchContainer = styled.div`
   background: #ffffff;
   padding: 12px;
 `
+const JobFilterContainer = styled.div`
+  @media only screen and (min-width: 1100px) {
+    display: grid;
+    grid-template-columns: minmax(231px, 20%) 1fr;
+    column-gap: 77px;
+  }
+`
+
 const SearchInput = styled.input``
 const SearchButton = styled.button`
   border: none;
@@ -37,10 +45,7 @@ const SearchSection = () => {
   const [scrollPosition, setScrollPosition] = useState(0)
   const [filterUrl, setFilterUrl] = useState('')
 
-  const { jobs, initLoading } = useInitRequest(
-    `https://jobs.github.com/positions.json${filterUrl ? '?' + filterUrl : ''}`
-  )
-  const loading = initLoading
+  const { jobs, loading } = useInitRequest(`https://jobs.github.com/positions.json${filterUrl ? `?${filterUrl}` : ''}`)
 
   const onEnterLocation = async () => {}
   const handleFilter = (url: string) => {
@@ -67,26 +72,32 @@ const SearchSection = () => {
               <SearchButton>Search</SearchButton>
             </SearchContainer>
           </BannerContainer>
-          <Filters handleFilter={handleFilter} onEnterLocation={onEnterLocation} />
-          {loading ? (
-            <Loader>
-              <div />
-            </Loader>
-          ) : jobs.length > 0 ? (
-            jobs.map((job) => (
-              <JobCard
-                key={job.id}
-                job={job}
-                onClick={() => {
-                  setSelectedJob(job)
-                  setScrollPosition(window.scrollY)
-                  window.scrollTo(0, 0)
-                }}
-              />
-            ))
-          ) : (
-            <div>No Job Found</div>
-          )}
+          <JobFilterContainer>
+            <div>
+              <Filters handleFilter={handleFilter} onEnterLocation={onEnterLocation} />
+            </div>
+            <div>
+              {loading ? (
+                <Loader>
+                  <div />
+                </Loader>
+              ) : jobs.length > 0 ? (
+                jobs.map((job) => (
+                  <JobCard
+                    key={job.id}
+                    job={job}
+                    onClick={() => {
+                      setSelectedJob(job)
+                      setScrollPosition(window.scrollY)
+                      window.scrollTo(0, 0)
+                    }}
+                  />
+                ))
+              ) : (
+                <div>No Job Found</div>
+              )}
+            </div>
+          </JobFilterContainer>
         </>
       )}
     </>
