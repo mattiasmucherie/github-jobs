@@ -28,13 +28,19 @@ const Filters = (props: FiltersProps) => {
     if (label) {
       setCity(label)
       setUserLocationSearch(label)
+      if (label === city) {
+        setCity('')
+        setUserLocationSearch('')
+      }
     }
   }
   const handleLocationSearch = (userSearch: string | null) => {
     if (userSearch) {
       setUserLocationSearch(userSearch)
+      setCity('')
     } else {
       setUserLocationSearch('')
+      setCity('')
     }
     onEnterLocation()
   }

@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
-const HiddenCheckbox = styled.input.attrs({ type: 'radio' })`
+const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   border: 0;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
