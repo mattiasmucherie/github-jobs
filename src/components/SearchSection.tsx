@@ -55,7 +55,7 @@ const SearchSection = () => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null)
   const [scrollPosition, setScrollPosition] = useState(0)
   const [filterUrl, setFilterUrl] = useState('')
-  const [locationFilter, setLocationFilter] =useState('')
+  const [locationFilter, setLocationFilter] = useState('')
   const [searchBarFilter, setSearchBarFilter] = useState('')
 
   const { jobs, loading } = useInitRequest(`https://jobs.github.com/positions.json${filterUrl ? `?${filterUrl}` : ''}`)
@@ -65,10 +65,11 @@ const SearchSection = () => {
   }
 
   const handleSearchBar = (userSearch: string | null) => {
-   if (userSearch) {
+    if (userSearch) {
       setSearchBarFilter(userSearch)
+    }
   }
-   // TODO:  MAKE A FUNCTION THAT ONLY UPDATES FILTER URL WHEN SEARCHBAR OR LOCATIONFILTER |HAS BEEN CHANGED
+  // TODO:  MAKE A FUNCTION THAT ONLY UPDATES FILTER URL WHEN SEARCHBAR OR LOCATIONFILTER |HAS BEEN CHANGED
 
   const resetSelectedJob = () => {
     setSelectedJob(null)
